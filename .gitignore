@@ -1,0 +1,38 @@
+# ================================
+# Dépendances
+# ================================
+node_modules/
+package-lock.json
+
+# ================================
+# Fichiers secrets (JAMAIS commités)
+# ================================
+.env
+.env.local
+*.env
+
+# ================================
+# Base de données locale SQLite
+# ================================
+*.sqlite
+*.sqlite3
+
+# ================================
+# Expo / React Native
+# ================================
+.expo/
+dist/
+web-build/
+npm-debug.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.orig.*
+
+# ================================
+# macOS / Windows
+# ================================
+.DS_Store
+Thumbs.db
