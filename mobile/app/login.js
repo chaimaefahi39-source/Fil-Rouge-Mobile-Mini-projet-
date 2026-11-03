@@ -14,14 +14,21 @@ import {
   Keyboard,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { Redirect, useRouter } from 'expo-router';
 import { loginUser } from '../services/api';
 import { useAuthStore } from '../store/authStore';
 
-export default function LoginScreen({ navigation }) { 
+export default function LoginScreen() {
+  const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const token = useAuthStore((state) => state.token);
   const login = useAuthStore((state) => state.login);
+
+  if (token) {
+    return <Redirect href="/home" />;
+  }
 
   const handleLogin = async () => {
     if (!email.trim() || !password.trim()) {
@@ -92,7 +99,7 @@ export default function LoginScreen({ navigation }) {
               </TouchableOpacity>
 
               <TouchableOpacity
-                onPress={() => navigation.navigate('Register')}
+                onPress={() => router.push('/register')}
                 style={styles.linkButton}
                 activeOpacity={0.7}
               >

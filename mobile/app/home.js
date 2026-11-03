@@ -9,6 +9,7 @@ import {
   Alert,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { Redirect } from 'expo-router';
 import { getUsers } from '../services/api';
 import { useAuthStore } from '../store/authStore';
 
@@ -32,8 +33,14 @@ export default function HomeScreen() {
   };
 
   useEffect(() => {
-    fetchUsers();
-  }, []);
+    if (token) {
+      fetchUsers();
+    }
+  }, [token]);
+
+  if (!token) {
+    return <Redirect href="/login" />;
+  }
 
   const handleRefresh = () => {
     setRefreshing(true);

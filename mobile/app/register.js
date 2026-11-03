@@ -14,13 +14,21 @@ import {
   Keyboard,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { Redirect, useRouter } from 'expo-router';
 import { registerUser } from '../services/api';
+import { useAuthStore } from '../store/authStore';
 
-export default function RegisterScreen({ navigation }) {
+export default function RegisterScreen() {
+  const router = useRouter();
   const [nom, setNom] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const token = useAuthStore((state) => state.token);
+
+  if (token) {
+    return <Redirect href="/home" />;
+  }
 
   const handleRegister = async () => {
     if (!nom.trim() || !email.trim() || !password.trim()) {
@@ -40,7 +48,7 @@ export default function RegisterScreen({ navigation }) {
       Alert.alert(
         'Succès',
         'Votre compte a été créé avec succès ! Vous pouvez maintenant vous connecter.',
-        [{ text: 'OK', onPress: () => navigation.navigate('Login') }]
+        [{ text: 'OK', onPress: () => router.replace('/login') }]
       );
     } catch (error) {
       Alert.alert("Échec de l'inscription", error.message);
@@ -109,7 +117,7 @@ export default function RegisterScreen({ navigation }) {
               </TouchableOpacity>
 
               <TouchableOpacity
-                onPress={() => navigation.navigate('Login')}
+                onPress={() => router.replace('/login')}
                 style={styles.linkButton}
                 activeOpacity={0.7}
               >

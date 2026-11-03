@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "Rattrapage Mobile",
+    "slug": "rattrapage-mobile",
+    "scheme": "rattrapage-mobile",
+    "plugins": [
+      "expo-router"
+    ]
+  }
+}
